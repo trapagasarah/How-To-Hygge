@@ -5,8 +5,7 @@ const User = new Schema ({
     id: String,
     name: String,
     email: String,
-    hyggeItems: [hyggeItem],
-    customItems: [customItem]
+    hyggeItems: [],
 });
 
 module.exports = mongoose.model('User', User);
