@@ -2,8 +2,8 @@ const express = require('express');
 const logger = require('morgan');
 const app = express();
 const userRoutes = require('./routes/userRouter');
-const hyggeItemRoutes = require('./routes/hyggeItem');
-// const categoryRoutes = require('./routes/categoryRouter');
+const hyggeItemRoutes = require('./routes/hyggeItemRouter');
+const categoryRoutes = require('./routes/categoryRouter');
 
 app.use(logger('dev'));
 app.use(express.urlencoded({extended: true}));
@@ -12,6 +12,7 @@ app.use(express.json());
 
 app.use('/users', userRoutes);
 app.use('/items', hyggeItemRoutes);
+app.use('/categories', categoryRoutes);
 
 app.get('/',(req, res) => {
     res.send('Hello World')
