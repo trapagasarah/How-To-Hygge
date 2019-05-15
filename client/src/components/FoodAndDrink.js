@@ -3,7 +3,7 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 
- class FoodAndDrink extends Componenet {
+ class FoodAndDrink extends Component {
      render (){
          return(
              <div>
