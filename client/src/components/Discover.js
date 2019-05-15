@@ -13,10 +13,13 @@ class Discover extends Component {
         this.setState({ categories: response.data })
     }
 
-    handleChange = async (categoryId) => {
-        let response = await axios.get(`/categories/${categoryId}`)
-        console.log(response.data)
-        this.props.setCategory(response.data)
+    handleChange = async (categoryId, categoryName) => {
+        let categoryResponse = await axios.get(`/categories/${categoryId}`)
+        console.log(categoryResponse.data)
+        this.props.setCategory(categoryResponse.data)
+        let itemsResponse = await axios.get(`/categories/${categoryName}/items`)
+        console.log(itemsResponse.data)
+        this.props.setItems(itemsResponse.data)
     }
 
     render() {
@@ -28,7 +31,7 @@ class Discover extends Component {
                     this.state.categories.map(category => {
                         return (
                             <div key={category._id}>
-                                <Link onClick={() => this.handleChange(category._id)} to={`/categories/${category.name.replace(/\s+/g, '').toLowerCase()}`}>
+                                <Link onClick={() => this.handleChange(category._id, category.name)} to={`/categories/${category.name.replace(/\s+/g, '').toLowerCase()}`}>
                                     {category.name}
                                 </Link>
                             </div>

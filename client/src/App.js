@@ -13,15 +13,16 @@ import DefaultCategoryView from './components/DefaultCategoryView'
 class App extends Component {
   state = {
     user: {
-      id: 'fakeId',
-      name: 'Michale',
-      email: 'michaelmail@example.com',
+      id: '',
+      name: '',
+      email: '',
       hyggeItems: []
     },
     category: {
-      name: 'Light',
-      description: 'orb of fire'
-    }
+      name: '',
+      description: ''
+    },
+    items: []
   }
   setUser = (user) => {
     this.setState({user: user})
@@ -31,14 +32,18 @@ class App extends Component {
     this.setState({category: category})
   }
 
+  setItems = (items) => {
+    this.setState({items: items})
+  }
+
   render() {
-    const DiscoverComponent = () => (<Discover setCategory={this.setCategory}  />)
+    const DiscoverComponent = () => (<Discover setItems ={this.setItems} setCategory={this.setCategory}  />)
     const LightComponent = () => (<Light category = {this.state.category}/>)
     const HomeComponent = () => (<Home  category = {this.state.category} />)
     const ClothingComponent = () => (<Clothing category = {this.state.category} />)
     const FoodAndDrinkComponent = () => (<FoodAndDrink category = {this.state.category} />)
     const TogethernessComponent = () => (<Togetherness category = {this.state.category} />)
-    const DefaultCategoryViewComponent = () => (<DefaultCategoryView  category= {this.state.category} />)
+    const DefaultCategoryViewComponent = () => (<DefaultCategoryView  items= {this.state.items} category= {this.state.category} />)
 
     return (
       <Router>
