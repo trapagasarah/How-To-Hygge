@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import LogIn from './components/LogIn'
 import Discover from './components/Discover'
 import Light from './components/Light'
+import Home from './components/Home'
 
 class App extends Component {
   state = {
@@ -23,6 +24,7 @@ class App extends Component {
   render() {
     const DiscoverComponent = () => (<Discover user = {this.state.user} />)
     const LightComponent = () => (<Light category = {this.state.category}/>)
+    const HomeComponent = () => (<Home  category = {this.state.category} />)
     return (
       <Router>
         <div>
@@ -30,6 +32,7 @@ class App extends Component {
               <Route exact path="/login" component={LogIn} />
               <Route exact path="/discover" render={DiscoverComponent} />
               <Route exact path="/light" render={LightComponent} />
+              <Route exact path="/home" render={HomeComponent} />
               <Route path="/*" render={() => <Redirect to="/discover" />} />
           </Switch>
         </div>
