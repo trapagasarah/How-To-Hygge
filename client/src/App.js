@@ -40,6 +40,7 @@ class App extends Component {
               <Route exact path="/light" render={LightComponent} />
               <Route exact path="/home" render={HomeComponent} />
               <Route exact path="/clothing" render={ClothingComponent} />
+              <Route exact path="/foodanddrink" render={FoodAndDrinkComponent} />
               <Route path="/*" render={() => <Redirect to="/discover" />} />
           </Switch>
         </div>
