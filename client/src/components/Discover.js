@@ -7,10 +7,18 @@ class Discover extends Component {
     state = {
         categories: []
     }
+
     componentDidMount = async () => {
         let response = await axios.get('/categories')
         this.setState({ categories: response.data })
     }
+
+    handleChange = async (categoryId) => {
+        let response = await axios.get(`/categories/${categoryId}`)
+        console.log(response.data)
+        this.props.setCategory(response.data)
+    }
+
     render() {
         return (
             <div>
@@ -19,8 +27,8 @@ class Discover extends Component {
                 {
                     this.state.categories.map(category => {
                         return (
-                            <div key={category.id}>
-                                <Link to={`/${category.name}`}>
+                            <div key={category._id}>
+                                <Link onClick={() => this.handleChange(category._id)} to={`/categories/${category.name.replace(/\s+/g, '').toLowerCase()}`}>
                                     {category.name}
                                 </Link>
                             </div>

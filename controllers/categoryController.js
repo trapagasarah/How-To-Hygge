@@ -1,4 +1,5 @@
 const Category = require('../models/Category')
+const HyggeItem = require('../models/HyggeItem')
 
 const categoryController = {
     list: async (req, res) => {
@@ -35,6 +36,17 @@ const categoryController = {
             const categoryId = req.params.id
             const deletedCategory = await Category.findByIdAndRemove(categoryId)
             res.json(deletedCategory)
+        } catch (err) {
+            console.log(err)
+            res.status(500).json(err)
+        }
+    },
+    items: async  (req, res) => {
+        try {
+            const category = req.params.category
+            console.log(category)
+            const items = await HyggeItem.find({category: category})
+            res.json(items)
         } catch (err) {
             console.log(err)
             res.status(500).json(err)
