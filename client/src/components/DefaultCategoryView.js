@@ -9,13 +9,15 @@ class DefaultCategoryView extends Component {
             <div>
                 <h2>{this.props.category.name}</h2>
                 <p>{this.props.category.description}</p>
-                <img src={this.props.category.img}/>
+                <img src={this.props.category.img} />
                 <div>
                     {
-                        this.props.items.map(item => <div>
+                        this.props.items.map(item => <div key={item._id}>
+                            <img src={item.image} />
                             <h3>{item.name}</h3>
                             <p>{item.description}</p>
-                            </div>)
+                            <button onClick={() => this.props.addItem(item)}>Add Item</button>
+                        </div>)
                     }
                 </div>
             </div>

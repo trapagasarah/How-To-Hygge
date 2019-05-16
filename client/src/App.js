@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect, Link } from 'react-router-dom'
 import axios from 'axios'
 import LogIn from './components/LogIn'
 import Discover from './components/Discover'
@@ -9,11 +9,13 @@ import Clothing from './components/Clothing'
 import FoodAndDrink from './components/FoodAndDrink'
 import Togetherness from './components/Togetherness'
 import DefaultCategoryView from './components/DefaultCategoryView'
+import MyHomeWishlist from './components/MyHomeWishlist';
+import Admin from './components/Admin'
 
 class App extends Component {
   state = {
     user: {
-      id: '',
+      id: 'test',
       name: '',
       email: '',
       hyggeItems: []
@@ -25,39 +27,69 @@ class App extends Component {
     items: []
   }
   setUser = (user) => {
-    this.setState({user: user})
+    this.setState({ user: user })
   }
 
   setCategory = (category) => {
-    this.setState({category: category})
+    this.setState({ category: category })
   }
 
   setItems = (items) => {
-    this.setState({items: items})
+    this.setState({ items: items })
+  }
+
+  addItem = (item) => {
+    this.setState(prevState => (
+      {
+        user: {
+          ...prevState.user,
+          hyggeItems: [...prevState.user.hyggeItems, item]
+        }
+      }
+    ))
+  
+    console.log(this.state.user)
+  }
+
+  deleteHyggeItem = (index) => {
+    this.setState(prevState => (
+      {
+        user: {
+          ...prevState.user,
+          hyggeItems: prevState.user.hyggeItems.filter((hyggeItem, i) => index !== i)
+        }
+      }
+    ))
   }
 
   render() {
-    const DiscoverComponent = () => (<Discover setItems ={this.setItems} setCategory={this.setCategory}  />)
-    const LightComponent = () => (<Light category = {this.state.category}/>)
-    const HomeComponent = () => (<Home  category = {this.state.category} />)
-    const ClothingComponent = () => (<Clothing category = {this.state.category} />)
-    const FoodAndDrinkComponent = () => (<FoodAndDrink category = {this.state.category} />)
-    const TogethernessComponent = () => (<Togetherness category = {this.state.category} />)
-    const DefaultCategoryViewComponent = () => (<DefaultCategoryView  items= {this.state.items} category= {this.state.category} />)
+    const DiscoverComponent = () => (<Discover setItems={this.setItems} setCategory={this.setCategory} />)
+    const LightComponent = () => (<Light category={this.state.category} />)
+    const HomeComponent = () => (<Home category={this.state.category} />)
+    const ClothingComponent = () => (<Clothing category={this.state.category} />)
+    const FoodAndDrinkComponent = () => (<FoodAndDrink category={this.state.category} />)
+    const TogethernessComponent = () => (<Togetherness category={this.state.category} />)
+    const DefaultCategoryViewComponent = () => (<DefaultCategoryView addItem={this.addItem} items={this.state.items} category={this.state.category} />)
+    const MyHomeWishlistComponent = () => (<MyHomeWishlist deleteHyggeItem={this.deleteHyggeItem} hyggeItems={this.state.user.hyggeItems}/>)
+    const AdminComponent = () => (<Admin />) 
 
     return (
       <Router>
         <div>
+          <Link to="/myhomewishlist">My Home Wishlist</Link>
+          <Link to="/admin">Admin</Link>
           <Switch>
-              <Route exact path="/login" component={LogIn} />
-              <Route exact path="/discover" render={DiscoverComponent} />
-              {/* <Route exact path="/categories/light" render={LightComponent} />
+            {/* <Route exact path="/login" component={LogIn} /> */}
+            <Route exact path="/discover" render={DiscoverComponent} />
+            <Route exact path="/myhomewishlist" render={MyHomeWishlistComponent} />
+            <Route exact path="/admin" render={AdminComponent} />
+            {/* <Route exact path="/categories/light" render={LightComponent} />
               <Route exact path="/categories/home" render={HomeComponent} />
               <Route exact path="/categories/clothing" render={ClothingComponent} />
               <Route exact path="/categories/foodanddrink" render={FoodAndDrinkComponent} />
               <Route exact path="/categories/togetherness" render={TogethernessComponent} /> */}
-              <Route path="/categories/:name" render={DefaultCategoryViewComponent} />
-              <Route path="/*" render={() => <Redirect to="/discover" />} />
+            <Route path="/categories/:name" render={DefaultCategoryViewComponent} />
+            <Route path="/*" render={() => <Redirect to="/discover" />} />
           </Switch>
         </div>
       </Router>
