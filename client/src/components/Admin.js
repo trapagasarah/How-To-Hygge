@@ -10,6 +10,12 @@ class Admin extends Component {
             name: '',
             description: '',
             image: ''
+        },
+        newItem: {
+            name: '',
+            description: '',
+            category: '',
+            image: ''
         }
     }
 
@@ -36,6 +42,25 @@ class Admin extends Component {
         await axios.post('/categories', this.state.newCategory)
         let categoriesResponse = await axios.get('/categories')
         this.setState({ categories: categoriesResponse.data })
+    }
+
+    handleItemChange = async (event) => {
+        let name = event.target.name
+        let value = event.target.value
+        this.setState(prevState => ({
+            newItem: {
+                ...prevState.newItem,
+                [name]: value
+            }
+        }))
+    }
+
+    onItemSubmit = async (event) => {
+        event.preventDefault()
+        await axios.post('/items', this.state.newItem)
+        let itemsResponse = await axios.get('/items')
+        console.log(itemsResponse)
+        this.setState({ items: itemsResponse.data })
     }
 
     render() {
@@ -74,6 +99,48 @@ class Admin extends Component {
                         value={this.state.newCategory.image}
                     />
                     <button>Submit Category</button>
+                </form>
+                {
+                    this.state.items.map(item => (
+                        <div>
+                            {item.name}
+                            {item.category}
+                        </div>
+                    )
+                    )
+                }
+                <form onSubmit={this.onItemSubmit}>
+                    <label htmlFor="name">Name</label>
+                    <input
+                        id="name"
+                        type="text"
+                        name="name"
+                        onChange={this.handleItemChange}
+                        value={this.state.newItem.name} />
+                    <label htmlFor="description">Description</label>
+                    <textarea
+                        id="description"
+                        type="text"
+                        name="description"
+                        onChange={this.handleItemChange}
+                        value={this.state.newItem.description}
+                    />
+                    <label htmlFor="category">Category</label>
+                    <input
+                        id="category"
+                        type="text"
+                        name="category"
+                        onChange={this.handleItemChange}
+                        value={this.state.newItem.category}
+                    />
+                    <label htmlFor="image">Image</label>
+                    <input
+                        id="image"
+                        type="text"
+                        name="image"
+                        onChange={this.handleItemChange}
+                        value={this.state.newItem.image} />
+                    <button>Submit Item</button>
                 </form>
                 {/* //Add category form (button on click save category
 
