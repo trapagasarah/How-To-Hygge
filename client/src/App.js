@@ -62,6 +62,7 @@ class App extends Component {
     ))
   }
 
+  
   render() {
     const DiscoverComponent = () => (<Discover setItems={this.setItems} setCategory={this.setCategory} />)
     const LightComponent = () => (<Light category={this.state.category} />)
@@ -70,7 +71,7 @@ class App extends Component {
     const FoodAndDrinkComponent = () => (<FoodAndDrink category={this.state.category} />)
     const TogethernessComponent = () => (<Togetherness category={this.state.category} />)
     const DefaultCategoryViewComponent = () => (<DefaultCategoryView addItem={this.addItem} items={this.state.items} category={this.state.category} />)
-    const MyHomeWishlistComponent = () => (<MyHomeWishlist deleteHyggeItem={this.deleteHyggeItem} hyggeItems={this.state.user.hyggeItems}/>)
+    const MyHomeWishlistComponent = () => (<MyHomeWishlist addHyggeItem={this.addItem} deleteHyggeItem={this.deleteHyggeItem} hyggeItems={this.state.user.hyggeItems}/>)
     const AdminComponent = () => (<Admin />) 
 
     return (

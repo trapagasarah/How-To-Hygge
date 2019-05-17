@@ -37,12 +37,21 @@ class Admin extends Component {
         }))
     }
 
+
     onCategorySubmit = async (event) => {
         event.preventDefault()
         await axios.post('/categories', this.state.newCategory)
         let categoriesResponse = await axios.get('/categories')
+        console.log(categoriesResponse)
         this.setState({ categories: categoriesResponse.data })
     }
+
+    deleteCategory = async (categoryId) => {
+        await axios.delete(`/categories/${categoryId}`)
+        let categoriesResponse = await axios.get('/categories')
+        this.setState({ categories: categoriesResponse.data })
+    }
+
 
     handleItemChange = async (event) => {
         let name = event.target.name
@@ -63,16 +72,36 @@ class Admin extends Component {
         this.setState({ items: itemsResponse.data })
     }
 
+    deleteItem = async (itemId) => {
+        await axios.delete(`/items/${itemId}`)
+        let itemsResponse = await axios.get('/items')
+        this.setState({ items: itemsResponse.data })
+    }
+
+
     render() {
         return (
             <div>
                 {
                     this.state.categories.map(category => (
-                        <div>
-                            {category.name}
+                        <div key={category._id}>
+                            <h3>{category.name}</h3>
+                            <button onClick={() => this.deleteCategory(category._id)}>Delete Category</button>
+                            {
+                                this.state.items.filter(item => item.category.toLowerCase() === category.name.toLowerCase()).map((item) => (
+                                    <div key={item._id}>
+                                        <h5>{item.name}</h5>
+                                        <button onClick={() => this.deleteItem(item._id)}>Remove Item</button>
+                                    </div>
+                                )
+                                )
+                            }
+
                         </div>
+
                     ))
                 }
+                <h2>Create Category</h2>
                 < form onSubmit={this.onCategorySubmit}>
                     <label htmlFor="name">Name</label>
                     <input
@@ -99,16 +128,10 @@ class Admin extends Component {
                         value={this.state.newCategory.image}
                     />
                     <button>Submit Category</button>
+
                 </form>
-                {
-                    this.state.items.map(item => (
-                        <div>
-                            {item.name}
-                            {item.category}
-                        </div>
-                    )
-                    )
-                }
+                
+                <h2>Create Item</h2>
                 <form onSubmit={this.onItemSubmit}>
                     <label htmlFor="name">Name</label>
                     <input
@@ -141,6 +164,7 @@ class Admin extends Component {
                         onChange={this.handleItemChange}
                         value={this.state.newItem.image} />
                     <button>Submit Item</button>
+
                 </form>
                 {/* //Add category form (button on click save category
 
