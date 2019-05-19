@@ -40,6 +40,13 @@ const LoginWrapper = styled.div`
     
     button {
         width: 5em;
+        background-color: rgb(187, 200, 147);
+        border: 1px solid white; 
+    }
+
+    button:hover {
+        background-color: white;
+        color: rgb(187, 200, 147);
     }
 `
 

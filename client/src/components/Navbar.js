@@ -27,7 +27,7 @@ const NavbarWrapper = styled.div`
           font-weight: 700;
     }
     a:hover {
-      color: purple;
+      color: white;
     }
     
 `
