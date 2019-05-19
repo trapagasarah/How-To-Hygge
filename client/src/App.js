@@ -3,19 +3,15 @@ import { BrowserRouter as Router, Switch, Route, Redirect, Link } from 'react-ro
 import axios from 'axios'
 import LogIn from './components/LogIn'
 import Discover from './components/Discover'
-import Light from './components/Light'
-import Home from './components/Home'
-import Clothing from './components/Clothing'
-import FoodAndDrink from './components/FoodAndDrink'
-import Togetherness from './components/Togetherness'
 import DefaultCategoryView from './components/DefaultCategoryView'
 import MyHomeWishlist from './components/MyHomeWishlist';
 import Admin from './components/Admin'
+import Navbar from './components/Navbar'
 
 class App extends Component {
   state = {
     user: {
-      id: 'test',
+      id: '',
       name: '',
       email: '',
       hyggeItems: []
@@ -26,7 +22,9 @@ class App extends Component {
     },
     items: []
   }
+
   setUser = (user) => {
+    console.log(user)
     this.setState({ user: user })
   }
 
@@ -46,8 +44,12 @@ class App extends Component {
           hyggeItems: [...prevState.user.hyggeItems, item]
         }
       }
-    ))
-  
+    )
+      , () => {
+        axios.patch(`/users/${this.state.user._id}`, this.state.user)
+      }
+    )
+
     console.log(this.state.user)
   }
 
@@ -59,36 +61,38 @@ class App extends Component {
           hyggeItems: prevState.user.hyggeItems.filter((hyggeItem, i) => index !== i)
         }
       }
-    ))
+    )
+    , () => axios.patch(`/users/${this.state.user._id}`, this.state.user)
+    )
   }
 
-  
+  createUser = async (user) => {
+    user.id = Math.random()
+    this.setState({ user: user })
+    let createdUser = await axios.post('/users', user)
+    console.log(createdUser)
+  }
+
+  signInUser = async (user) => {
+    let response = await axios.post(`/users/signin`, user)
+    this.setState({ user: response.data })
+  }
+
   render() {
     const DiscoverComponent = () => (<Discover setItems={this.setItems} setCategory={this.setCategory} />)
-    const LightComponent = () => (<Light category={this.state.category} />)
-    const HomeComponent = () => (<Home category={this.state.category} />)
-    const ClothingComponent = () => (<Clothing category={this.state.category} />)
-    const FoodAndDrinkComponent = () => (<FoodAndDrink category={this.state.category} />)
-    const TogethernessComponent = () => (<Togetherness category={this.state.category} />)
     const DefaultCategoryViewComponent = () => (<DefaultCategoryView addItem={this.addItem} items={this.state.items} category={this.state.category} />)
-    const MyHomeWishlistComponent = () => (<MyHomeWishlist addHyggeItem={this.addItem} deleteHyggeItem={this.deleteHyggeItem} hyggeItems={this.state.user.hyggeItems}/>)
-    const AdminComponent = () => (<Admin />) 
+    const MyHomeWishlistComponent = () => (<MyHomeWishlist addHyggeItem={this.addItem} deleteHyggeItem={this.deleteHyggeItem} hyggeItems={this.state.user.hyggeItems} />)
+    const LogInComponent = () => (<LogIn createUser={this.createUser} signInUser={this.signInUser} />)
+    const AdminComponent = () => (<Admin />)
 
     return (
       <Router>
         <div>
-          <Link to="/myhomewishlist">My Home Wishlist</Link>
-          <Link to="/admin">Admin</Link>
+          <Navbar parentState={this.state}/>
           <Switch>
-            {/* <Route exact path="/login" component={LogIn} /> */}
             <Route exact path="/discover" render={DiscoverComponent} />
             <Route exact path="/myhomewishlist" render={MyHomeWishlistComponent} />
             <Route exact path="/admin" render={AdminComponent} />
-            {/* <Route exact path="/categories/light" render={LightComponent} />
-              <Route exact path="/categories/home" render={HomeComponent} />
-              <Route exact path="/categories/clothing" render={ClothingComponent} />
-              <Route exact path="/categories/foodanddrink" render={FoodAndDrinkComponent} />
-              <Route exact path="/categories/togetherness" render={TogethernessComponent} /> */}
             <Route path="/categories/:name" render={DefaultCategoryViewComponent} />
             <Route path="/*" render={() => <Redirect to="/discover" />} />
           </Switch>

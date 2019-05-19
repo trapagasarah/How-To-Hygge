@@ -50,6 +50,16 @@ const userController = {
             console.log(err)
             res.status(500).json(err)
         }
+    }, 
+    signIn: async (req, res) => {
+        try {
+            const user = req.body
+            const signedInUser = await User.findOne({email: user.email})
+            res.json(signedInUser)
+        } catch (err) {
+            console.log(err)
+            res.status(500).json(err)
+        }
     }
 }
 
