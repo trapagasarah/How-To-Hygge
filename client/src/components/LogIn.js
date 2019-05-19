@@ -3,6 +3,46 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+const LoginWrapper = styled.div`
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    h2 {
+        font-size: 3em;
+    }
+    label {
+        font-size: 1.5em;
+    }
+
+    input {
+        margin-bottom: 1em;
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1em;
+    }
+
+    .create-account-form {
+        margin: 4em;
+        display: flex;
+        flex-direction: column;
+    }
+    .signin-form {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    button {
+        width: 5em;
+    }
+`
+
 class LogIn extends Component {
     state = {
         newUser: {
@@ -39,38 +79,43 @@ class LogIn extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.onNewUserSubmit}>
+            <LoginWrapper>
+                <form className="create-account-form" onSubmit={this.onNewUserSubmit}>
                     <h2>Create Account</h2>
-                    <label htmlFor="name">Name</label>
-                    <input
-                        id="name"
-                        type="text"
-                        name="name"
-                        onChange={this.handleNewUserChange}
-                        value={this.state.newUser.name}
-                    />
-                    <label htmlFor="email">Email</label>
-                    <input
-                        id="email"
-                        type="text"
-                        name="email"
-                        onChange={this.handleNewUserChange}
-                        value={this.state.newUser.email} />
-                    <button>Submit</button>
+                    <div>
+                        <label htmlFor="name">Name</label>
+                        <input
+                            id="name"
+                            type="text"
+                            name="name"
+                            onChange={this.handleNewUserChange}
+                            value={this.state.newUser.name}
+                        />
+                        <label htmlFor="email">Email</label>
+                        <input
+                            id="email"
+                            type="text"
+                            name="email"
+                            onChange={this.handleNewUserChange}
+                            value={this.state.newUser.email} />
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
                 </form>
-                <form onSubmit={this.onSingInSubmit}>
+                <form className="signin-form" onSubmit={this.onSingInSubmit}>
                     <h2>Sign In</h2>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        id="email"
-                        type="text"
-                        name="email"
-                        onChange={this.handleExistingUserChange}
-                        value={this.state.existingUser.email} />
-                    <button>Submit</button>
+                    <div>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            id="email"
+                            type="text"
+                            name="email"
+                            onChange={this.handleExistingUserChange}
+                            value={this.state.existingUser.email} />
+
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
                 </form>
-            </div>
+            </LoginWrapper>
         )
     }
 }
