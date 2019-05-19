@@ -10,6 +10,25 @@ const DiscoverWrapper = styled.div`
     align-items: center;
     margin: 1.5em 0;
     font-family: 'Anonymous Pro', monospace;
+    color: white;
+
+    h1 {
+        font-size: 4em;
+    }
+
+    h3 {
+        font-size: 2.5em;
+        text-decoration: underline;
+    }
+
+    .category-name {
+        color: white;
+        font-size: 2em;
+    }
+
+    .category-name:hover {
+        color: rgb(187, 200, 147);
+    }
 
 `
 
@@ -41,7 +60,7 @@ class Discover extends Component {
                     this.state.categories.map(category => {
                         return (
                             <div key={category._id}>
-                                <Link onClick={() => this.handleChange(category._id, category.name)} to={`/categories/${category.name.replace(/\s+/g, '').toLowerCase()}`}>
+                                <Link class="category-name" onClick={() => this.handleChange(category._id, category.name)} to={`/categories/${category.name.replace(/\s+/g, '').toLowerCase()}`}>
                                     {category.name}
                                 </Link>
                             </div>

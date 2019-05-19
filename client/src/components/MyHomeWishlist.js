@@ -19,8 +19,12 @@ flex-wrap: wrap;
         margin: 1em;
         display: flex;
     }
+    h2 {
+        color: white;
+    }
     h3 {
         text-align: center;
+        color: white;
     }
     .my-hygge-form {
         display: flex;

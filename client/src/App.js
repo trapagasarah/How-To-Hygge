@@ -7,6 +7,8 @@ import DefaultCategoryView from './components/DefaultCategoryView'
 import MyHomeWishlist from './components/MyHomeWishlist';
 import Admin from './components/Admin'
 import Navbar from './components/Navbar'
+import Account from './components/Account'
+import About from './components/About'
 
 class App extends Component {
   state = {
@@ -84,6 +86,7 @@ class App extends Component {
     const MyHomeWishlistComponent = () => (<MyHomeWishlist addHyggeItem={this.addItem} deleteHyggeItem={this.deleteHyggeItem} hyggeItems={this.state.user.hyggeItems} />)
     const LogInComponent = () => (<LogIn createUser={this.createUser} signInUser={this.signInUser} />)
     const AdminComponent = () => (<Admin />)
+    const AccountComponent = () => (<Account user= {this.state.user} />)
 
     return (
       <Router>
@@ -94,6 +97,9 @@ class App extends Component {
             <Route exact path="/myhomewishlist" render={MyHomeWishlistComponent} />
             <Route exact path="/admin" render={AdminComponent} />
             <Route path="/categories/:name" render={DefaultCategoryViewComponent} />
+            <Route exact path="/login" render={LogInComponent} />
+            <Route exact path="/account" render={AccountComponent} />
+            <Route exact path="/about" component={About} />
             <Route path="/*" render={() => <Redirect to="/discover" />} />
           </Switch>
         </div>

@@ -20,7 +20,7 @@ const NavbarWrapper = styled.div`
           display: flex;
           justify-content: space-evenly;
           width: 12em;
-          color: rgb(138, 154, 91); 
+          color: rgb(187, 200, 147); 
           font-size: 1.5em; 
           font-weight: 700;
     }
@@ -43,7 +43,6 @@ class Navbar extends Component {
           <li className="nav-item"><Link as="a" className="nav-link active" to='/about'>About</Link></li>
           <li className="nav-item"><Link as="a" className="nav-link active" to='/account'>Account</Link></li>
           <li className="nav-item"><Link as="a" className="nav-link active " to='/admin'>Admin</Link></li>
-          <li className="nav-item"><Link as="a" className="nav-link active" to='/login'>Login</Link></li>
         </ul>
       </NavbarWrapper>
     )
