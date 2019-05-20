@@ -55,7 +55,7 @@ align-items: center;
         background-color: rgb(187, 200, 147);
         color: white;
         border: 1px solid white;
-        width: 6em;
+        width: 7em;
         height: 1.5em;
         padding: 0;
         margin-left: 1em;
