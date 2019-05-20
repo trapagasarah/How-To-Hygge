@@ -55,12 +55,27 @@ class App extends Component {
     console.log(this.state.user)
   }
 
-  deleteHyggeItem = (index) => {
+  // deleteHyggeItem = (index) => {
+  //   this.setState(prevState => (
+  //     {
+  //       user: {
+  //         ...prevState.user,
+  //         hyggeItems: prevState.user.hyggeItems.filter((hyggeItem, i) => index !== i)
+  //       }
+  //     }
+  //   )
+  //   , () => axios.patch(`/users/${this.state.user._id}`, this.state.user)
+  //   )
+  // }
+
+  deleteHyggeItem = (itemId) => {
+    console.log(this.state.user.hyggeItems)
+    const foundIndex = this.state.user.hyggeItems.findIndex(item => item._id == itemId)
     this.setState(prevState => (
       {
-        user: {
-          ...prevState.user,
-          hyggeItems: prevState.user.hyggeItems.filter((hyggeItem, i) => index !== i)
+        user: {   
+          ...prevState.user,  
+          hyggeItems: prevState.user.hyggeItems.filter((hyggeItem, i) => foundIndex !== i)
         }
       }
     )

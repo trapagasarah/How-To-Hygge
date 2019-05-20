@@ -6,6 +6,7 @@ const NavbarWrapper = styled.div`
     font-family: 'Anonymous Pro', monospace;
     margin: 2em 0;
     font-size: 1em;
+   
 
 
       ul {

@@ -8,9 +8,10 @@ const DiscoverWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 1.5em 0;
+    margin: 2em 0;
     font-family: 'Anonymous Pro', monospace;
     color: white;
+    
 
     h1 {
         font-size: 4em;
@@ -60,7 +61,7 @@ class Discover extends Component {
                     this.state.categories.map(category => {
                         return (
                             <div key={category._id}>
-                                <Link class="category-name" onClick={() => this.handleChange(category._id, category.name)} to={`/categories/${category.name.replace(/\s+/g, '').toLowerCase()}`}>
+                                <Link className="category-name" onClick={() => this.handleChange(category._id, category.name)} to={`/categories/${category.name.replace(/\s+/g, '').toLowerCase()}`}>
                                     {category.name}
                                 </Link>
                             </div>
