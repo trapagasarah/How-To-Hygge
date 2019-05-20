@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const AdminWrapper= styled.div`
+const AdminWrapper = styled.div`
     color: white;
     font-family: 'Anonymous Pro', monospace;
 
@@ -51,12 +51,19 @@ class Admin extends Component {
             description: '',
             category: '',
             image: ''
+        },
+        updatedCategory: {
+            name: '',
+            description: '',
+            category: '',
+            image: ''
         }
     }
 
     componentDidMount = async () => {
         let categoriesResponse = await axios('/categories')
         this.setState({ categories: categoriesResponse.data })
+        categoriesResponse.data.length && this.setState({ updatedCategory: categoriesResponse.data[0]})
         let itemsResponse = await axios('/items')
         this.setState({ items: itemsResponse.data })
     }
@@ -99,6 +106,16 @@ class Admin extends Component {
         }))
     }
 
+    handleEditChange = (event) => {
+        let name = event.target.name
+        let value = event.target.value
+        this.setState(prevState => ({
+            updatedCategory: {
+                ...prevState.updatedCategory,
+                [name]: value
+            }
+        }))
+    }
     onItemSubmit = async (event) => {
         event.preventDefault()
         await axios.post('/items', this.state.newItem)
@@ -111,6 +128,20 @@ class Admin extends Component {
         await axios.delete(`/items/${itemId}`)
         let itemsResponse = await axios.get('/items')
         this.setState({ items: itemsResponse.data })
+    }
+
+    onUpdatedItemSelected = (event) => {
+        let value = event.target.value  
+        console.log(value)
+        this.setState({updatedCategory: this.state.categories.find(category => category._id === value)})
+    }
+
+    saveCategory = async (event) => {
+        event.preventDefault()
+        await axios.patch(`/categories/${this.state.updatedCategory._id}`, this.state.updatedCategory)
+        let categoriesResponse = await axios.get('/categories')
+        console.log(categoriesResponse)
+        this.setState({ categories: categoriesResponse.data })
     }
 
 
@@ -162,10 +193,12 @@ class Admin extends Component {
                         onChange={this.handleCategoryChange}
                         value={this.state.newCategory.image}
                     />
+                    <img src={this.state.newCategory.image} />
+
                     <button className="btn btn-primary">Submit Category</button>
 
                 </form>
-                
+
                 <h2>Create Item</h2>
                 <form onSubmit={this.onItemSubmit}>
                     <label htmlFor="name">Name</label>
@@ -192,13 +225,38 @@ class Admin extends Component {
                         value={this.state.newItem.category}
                     />
                     <label htmlFor="image">Image</label>
-                    <input
-                        id="image"
+                    <button className="btn btn-primary">Submit Item</button>
+                </form>
+
+
+                <h2>Update Item</h2>
+                <form onSubmit={this.saveCategory}>
+                    <select name="_id" onChange={this.onUpdatedItemSelected}>
+                        {this.state.categories.map(category => (
+                            <option key={category._id} value={category._id}>{category.name}</option>
+                        ))}
+                    </select>
+                    <label htmlFor="editName">Name</label>
+                    <input id="editName"
+                        type="text"
+                        name="name"
+                        value={this.state.updatedCategory.name}
+                        onChange={this.handleEditChange} />
+
+                    <label htmlFor="editDescription">Description</label>
+                    <textarea id="editDescription"
+                        name="description"
+                        onChange={this.handleEditChange}
+                        value={this.state.updatedCategory.description} />
+
+                    <label htmlFor="editImage">Image</label>
+                    <input id="editImage"
                         type="text"
                         name="image"
-                        onChange={this.handleItemChange}
-                        value={this.state.newItem.image} />
-                    <button className="btn btn-primary">Submit Item</button>
+                        onChange={this.handleEditChange}
+                        value={this.state.updatedCategory.image} />
+                    <img src={this.state.updatedCategory.image} />
+                    <button>Save</button>
                 </form>
             </AdminWrapper>
         )

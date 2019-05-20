@@ -41,6 +41,17 @@ const categoryController = {
             res.status(500).json(err)
         }
     },
+    patch: async (req, res) => {
+        try {
+            const categoryId = req.params.id
+            const updatedCategory = req.body
+            const savedCategory = await Category.findByIdAndUpdate(categoryId, updatedCategory)
+            res.json(savedCategory)
+        } catch (err) {
+            console.log(err)
+            res.status(500).json(err)
+        }
+    },
     items: async  (req, res) => {
         try {
             const category = req.params.category
