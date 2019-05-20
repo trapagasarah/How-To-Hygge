@@ -10,26 +10,72 @@ font-family: 'Anonymous Pro', monospace;
 flex-direction: column;
 align-items: center;
 
-img{
+    .category-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 60%;
+    }
+
+    .item-info{
+        display: flex;
+        width: 60%;
+        margin-top: 1.5em;
+    }
+
+    .item-name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 5em;
+    }
+
+    h2 {
+        font-weight: 700;
+        
+    }
+
+    p {
+        font-size: 2em;
+        text-align: center;
+    }
+
+    img{
     width: 20em;
-}
+    margin-bottom: 1em;
+    }
+
+    button {
+        background-color: rgb(187, 200, 147);
+        color: white;
+        border: 1px solid white;
+        width: 6em;
+        height: 1.5em;
+        padding: 0;
+        margin-left: 1em;
+    }
+
 `
 
 class DefaultCategoryView extends Component {
     render() {
         return (
             <DefaultCategoryViewWrapper>
-                <h2>{this.props.category.name}</h2>
-                <img src={this.props.category.image} />
-                <p>{this.props.category.description}</p>
-                
-                <div>
+                <div className="category-info">
+                    <h1>{this.props.category.name}</h1>
+                    <img src={this.props.category.image} />
+                    <p>{this.props.category.description}</p>
+                </div>
+
+                <div className="item-info">
                     {
-                        this.props.items.map(item => <div key={item._id}>
-                            <img src={item.image} />
-                            <h3>{item.name}</h3>
-                            <p>{item.description}</p>
-                            <button onClick={() => this.props.addItem(item)}>Add Item</button>
+                        this.props.items.map(item => <div className="item-name" key={item._id}>
+                            <h2>{item.name}: {item.description}</h2>
+                            <button className="btn btn-primary" onClick={() => this.props.addItem(item)}>Add Item</button>
                         </div>)
                     }
                 </div>

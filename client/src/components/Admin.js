@@ -4,24 +4,49 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const AdminWrapper = styled.div`
-    color: white;
-    font-family: 'Anonymous Pro', monospace;
+display: flex;
+color: white;
+font-family: 'Anonymous Pro', monospace;
+flex-direction: column;
+
+    .category-container{
+        margin-bottom: 6em;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .category-container h2 {
+        margin-right: .5em;
+    }
+
+    .category-name {
+        display: flex;
+        
+
+    }
 
     .category-items {
         display: flex;
         flex-direction: column;
-        margin: 4em;
-        justify-content: center;
+        margin: 1em;
     }
 
+
     li {
-        margin: 1em;
+        margin-left: 2em;
         display: flex;
-        flex-direction: column;
     }
 
     input {
         margin-bottom: 1em;
+    }
+
+    h2 {
+        text-decoration: underline;
+    }
+
+    h5 {
+        margin-right: .5em;
     }
 
     label {
@@ -31,9 +56,39 @@ const AdminWrapper = styled.div`
     button {
         background-color: rgb(187, 200, 147);
         border: 1px solid white;
-        width: 8em;
+        width: 9em;
+        height: 1.5em;
+        margin-bottom: 1em;
+        padding: 0;
     }
 
+    button:hover {
+        color: rgb(187, 200, 147);
+        background-color: white;
+    }
+
+    .form-container {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-start;
+
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 20%;
+    }
+     img {
+         width: 10em;
+         margin-bottom: 1em;
+     }
+     
+     select {
+         margin-top: 1em;
+     }
     
 `
 
@@ -63,7 +118,7 @@ class Admin extends Component {
     componentDidMount = async () => {
         let categoriesResponse = await axios('/categories')
         this.setState({ categories: categoriesResponse.data })
-        categoriesResponse.data.length && this.setState({ updatedCategory: categoriesResponse.data[0]})
+        categoriesResponse.data.length && this.setState({ updatedCategory: categoriesResponse.data[0] })
         let itemsResponse = await axios('/items')
         this.setState({ items: itemsResponse.data })
     }
@@ -131,9 +186,9 @@ class Admin extends Component {
     }
 
     onUpdatedItemSelected = (event) => {
-        let value = event.target.value  
+        let value = event.target.value
         console.log(value)
-        this.setState({updatedCategory: this.state.categories.find(category => category._id === value)})
+        this.setState({ updatedCategory: this.state.categories.find(category => category._id === value) })
     }
 
     saveCategory = async (event) => {
@@ -148,117 +203,132 @@ class Admin extends Component {
     render() {
         return (
             <AdminWrapper>
-                {
-                    this.state.categories.map(category => (
-                        <ul className="category-items" key={category._id}>
-                            <h3>{category.name}</h3>
-                            <button onClick={() => this.deleteCategory(category._id)}>Delete Category</button>
-                            {
-                                this.state.items.filter(item => item.category.toLowerCase() === category.name.toLowerCase()).map((item) => (
-                                    <li key={item._id}>
-                                        <h5>{item.name}</h5>
-                                        <button className="btn btn-primary" onClick={() => this.deleteItem(item._id)}>Remove Item</button>
-                                    </li>
-                                )
-                                )
-                            }
+                <h1>Hygge Categories</h1>
+                <div className="category-container">
 
-                        </ul>
+                    {
+                        this.state.categories.map(category => (
 
-                    ))
-                }
-                <h2>Create Category</h2>
-                < form onSubmit={this.onCategorySubmit}>
-                    <label htmlFor="name">Name</label>
-                    <input
-                        id="name"
-                        type="text"
-                        name="name"
-                        onChange={this.handleCategoryChange}
-                        value={this.state.newCategory.name}
-                    />
-                    <label htmlFor="description">Description</label>
-                    <textarea
-                        id="description"
-                        type="text"
-                        name="description"
-                        onChange={this.handleCategoryChange}
-                        value={this.state.newCategory.description}
-                    />
-                    <label htmlFor="image">Image</label>
-                    <input
-                        id="image"
-                        type="text"
-                        name="image"
-                        onChange={this.handleCategoryChange}
-                        value={this.state.newCategory.image}
-                    />
-                    <img src={this.state.newCategory.image} />
+                            <ul className="category-items" key={category._id}>
+                                <div className="category-name">
+                                    <h2>{category.name}</h2>
+                                    <button className="btn btn-primary" onClick={() => this.deleteCategory(category._id)}>Delete Category</button>
+                                </div>
+                                {
+                                    this.state.items.filter(item => item.category.toLowerCase() === category.name.toLowerCase()).map((item) => (
+                                        <li key={item._id}>
+                                            <h5>{item.name}</h5>
+                                            <button className="btn btn-primary" onClick={() => this.deleteItem(item._id)}>Remove Item</button>
+                                        </li>
+                                    )
+                                    )
+                                }
 
-                    <button className="btn btn-primary">Submit Category</button>
+                            </ul>
 
-                </form>
+                        ))
 
-                <h2>Create Item</h2>
-                <form onSubmit={this.onItemSubmit}>
-                    <label htmlFor="name">Name</label>
-                    <input
-                        id="name"
-                        type="text"
-                        name="name"
-                        onChange={this.handleItemChange}
-                        value={this.state.newItem.name} />
-                    <label htmlFor="description">Description</label>
-                    <textarea
-                        id="description"
-                        type="text"
-                        name="description"
-                        onChange={this.handleItemChange}
-                        value={this.state.newItem.description}
-                    />
-                    <label htmlFor="category">Category</label>
-                    <input
-                        id="category"
-                        type="text"
-                        name="category"
-                        onChange={this.handleItemChange}
-                        value={this.state.newItem.category}
-                    />
-                    <label htmlFor="image">Image</label>
-                    <button className="btn btn-primary">Submit Item</button>
-                </form>
+                    }
+                </div>
 
 
-                <h2>Update Item</h2>
-                <form onSubmit={this.saveCategory}>
-                    <select name="_id" onChange={this.onUpdatedItemSelected}>
-                        {this.state.categories.map(category => (
-                            <option key={category._id} value={category._id}>{category.name}</option>
-                        ))}
-                    </select>
-                    <label htmlFor="editName">Name</label>
-                    <input id="editName"
-                        type="text"
-                        name="name"
-                        value={this.state.updatedCategory.name}
-                        onChange={this.handleEditChange} />
 
-                    <label htmlFor="editDescription">Description</label>
-                    <textarea id="editDescription"
-                        name="description"
-                        onChange={this.handleEditChange}
-                        value={this.state.updatedCategory.description} />
+                <div className="form-container">
+                    < form onSubmit={this.onCategorySubmit}>
+                        <h2>Create Category</h2>
+                        <label htmlFor="name">Name</label>
+                        <input
+                            id="name"
+                            type="text"
+                            name="name"
+                            onChange={this.handleCategoryChange}
+                            value={this.state.newCategory.name}
+                        />
+                        <label htmlFor="description">Description</label>
+                        <textarea
+                            id="description"
+                            type="text"
+                            name="description"
+                            onChange={this.handleCategoryChange}
+                            value={this.state.newCategory.description}
+                        />
+                        <label htmlFor="image">Image</label>
+                        <input
+                            id="image"
+                            type="text"
+                            name="image"
+                            onChange={this.handleCategoryChange}
+                            value={this.state.newCategory.image}
+                        />
+                        <img src={this.state.newCategory.image} />
 
-                    <label htmlFor="editImage">Image</label>
-                    <input id="editImage"
-                        type="text"
-                        name="image"
-                        onChange={this.handleEditChange}
-                        value={this.state.updatedCategory.image} />
-                    <img src={this.state.updatedCategory.image} />
-                    <button className="btn btn-primary">Save</button>
-                </form>
-            </AdminWrapper>
+                        <button className="btn btn-primary">Submit Category</button>
+
+                    </form>
+
+                    <form onSubmit={this.saveCategory}>
+                        <h2>Update Category</h2>
+                        <select name="_id" onChange={this.onUpdatedItemSelected}>
+                            {this.state.categories.map(category => (
+                                <option key={category._id} value={category._id}>{category.name}</option>
+                            ))}
+                        </select>
+                        <label htmlFor="editName">Name</label>
+                        <input id="editName"
+                            type="text"
+                            name="name"
+                            value={this.state.updatedCategory.name}
+                            onChange={this.handleEditChange} />
+
+                        <label htmlFor="editDescription">Description</label>
+                        <textarea id="editDescription"
+                            name="description"
+                            onChange={this.handleEditChange}
+                            value={this.state.updatedCategory.description} />
+
+                        <label htmlFor="editImage">Image</label>
+                        <input id="editImage"
+                            type="text"
+                            name="image"
+                            onChange={this.handleEditChange}
+                            value={this.state.updatedCategory.image} />
+                        <img src={this.state.updatedCategory.image} />
+                        <button className="btn btn-primary">Save</button>
+                    </form>
+
+                    <form onSubmit={this.onItemSubmit}>
+                        <h2>Create Item</h2>
+                        <label htmlFor="name">Name</label>
+                        <input
+                            id="name"
+                            type="text"
+                            name="name"
+                            onChange={this.handleItemChange}
+                            value={this.state.newItem.name} />
+                        <label htmlFor="description">Description</label>
+                        <textarea
+                            id="description"
+                            type="text"
+                            name="description"
+                            onChange={this.handleItemChange}
+                            value={this.state.newItem.description}
+                        />
+                        <label htmlFor="category">Category</label>
+                        <input
+                            id="category"
+                            type="text"
+                            name="category"
+                            onChange={this.handleItemChange}
+                            value={this.state.newItem.category}
+                        />
+                        <button className="btn btn-primary">Submit Item</button>
+                    </form>
+
+
+
+                    
+                </div>
+            </AdminWrapper >
         )
     }
 }

@@ -12,14 +12,14 @@ flex-direction: column;
     .my-hygge-items {
         display: flex;
         flex-direction: column;
-        margin: 4em;
+        margin: 1em;
         justify-content: center;
     }
 
     li {
         margin: 1em;
         display: flex;
-        flex-direction: column;
+        // flex-direction: column;
     }
 
     .delete-button {
@@ -39,6 +39,10 @@ flex-direction: column;
         color: white;
         text-decoration: underline;
     }
+
+    h4 {
+        margin-left: .5em;
+    }
     .my-hygge-form div {
         display: flex;
         flex-direction: column;
@@ -57,6 +61,11 @@ flex-direction: column;
     button {
         background-color: rgb(187, 200, 147);
         border: 1px solid white;
+    }
+
+    button:hover {
+        background-color: white;
+        color: rgb(187, 200, 147);
     }
  
     
@@ -101,6 +110,7 @@ class MyHomeWishlist extends Component {
     render() {
         return (
             <MyHyggeWishlistWrapper className="my-hygge-wishlist">
+                <h1>My Hygge Wishlist</h1>
                 <div className="my-hygge-items">
                     {
                         this.state.categories.map(category => (
@@ -108,8 +118,9 @@ class MyHomeWishlist extends Component {
                                 <h2 className="my-category-name">{category.name}</h2>
                                 {
                                     this.props.hyggeItems.filter(item => item.category.toLowerCase() === category.name.toLowerCase()).map((hyggeItem, index) => (
-                                        <li className="myHyggeItems" key={index}><h4>{hyggeItem.name}: {hyggeItem.description}</h4>
+                                        <li className="myHyggeItems" key={index}>
                                             <button className="btn btn-primary delete-button" type="submit" onClick={() => this.props.deleteHyggeItem(hyggeItem._id)}>Delete</button>
+                                            <h4>{hyggeItem.name}: {hyggeItem.description}</h4>
                                         </li>))
                                 }
                             </ul>))
