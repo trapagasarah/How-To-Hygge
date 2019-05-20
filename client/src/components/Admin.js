@@ -157,7 +157,7 @@ class Admin extends Component {
                                 this.state.items.filter(item => item.category.toLowerCase() === category.name.toLowerCase()).map((item) => (
                                     <li key={item._id}>
                                         <h5>{item.name}</h5>
-                                        <button onClick={() => this.deleteItem(item._id)}>Remove Item</button>
+                                        <button className="btn btn-primary" onClick={() => this.deleteItem(item._id)}>Remove Item</button>
                                     </li>
                                 )
                                 )
@@ -256,7 +256,7 @@ class Admin extends Component {
                         onChange={this.handleEditChange}
                         value={this.state.updatedCategory.image} />
                     <img src={this.state.updatedCategory.image} />
-                    <button>Save</button>
+                    <button className="btn btn-primary">Save</button>
                 </form>
             </AdminWrapper>
         )
