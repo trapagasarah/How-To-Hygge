@@ -11,6 +11,7 @@ class Account extends Component {
             <AccountWrapper>
                 <h3>Name: {this.props.user.name}</h3>
                 <h3>Email: {this.props.user.email}</h3>
+                <button onClick={this.props.deleteUser}>Delete Account</button>
             </AccountWrapper>
         )
     }

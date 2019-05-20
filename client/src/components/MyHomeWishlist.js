@@ -7,16 +7,12 @@ const MyHyggeWishlistWrapper = styled.div`
 display: flex;
 color: white;
 font-family: 'Anonymous Pro', monospace;
-
 flex-direction: column;
-
-
 
     .my-hygge-items {
         display: flex;
         flex-direction: column;
         margin: 4em;
-        
         justify-content: center;
     }
 

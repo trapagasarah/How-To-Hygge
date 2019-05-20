@@ -1,6 +1,41 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+const AdminWrapper= styled.div`
+    color: white;
+    font-family: 'Anonymous Pro', monospace;
+
+    .category-items {
+        display: flex;
+        flex-direction: column;
+        margin: 4em;
+        justify-content: center;
+    }
+
+    li {
+        margin: 1em;
+        display: flex;
+        flex-direction: column;
+    }
+
+    input {
+        margin-bottom: 1em;
+    }
+
+    label {
+        font-size: 1.5em;
+    }
+    
+    button {
+        background-color: rgb(187, 200, 147);
+        border: 1px solid white;
+        width: 8em;
+    }
+
+    
+`
 
 class Admin extends Component {
     state = {
@@ -81,23 +116,23 @@ class Admin extends Component {
 
     render() {
         return (
-            <div>
+            <AdminWrapper>
                 {
                     this.state.categories.map(category => (
-                        <div key={category._id}>
+                        <ul className="category-items" key={category._id}>
                             <h3>{category.name}</h3>
                             <button onClick={() => this.deleteCategory(category._id)}>Delete Category</button>
                             {
                                 this.state.items.filter(item => item.category.toLowerCase() === category.name.toLowerCase()).map((item) => (
-                                    <div key={item._id}>
+                                    <li key={item._id}>
                                         <h5>{item.name}</h5>
                                         <button onClick={() => this.deleteItem(item._id)}>Remove Item</button>
-                                    </div>
+                                    </li>
                                 )
                                 )
                             }
 
-                        </div>
+                        </ul>
 
                     ))
                 }
@@ -127,7 +162,7 @@ class Admin extends Component {
                         onChange={this.handleCategoryChange}
                         value={this.state.newCategory.image}
                     />
-                    <button>Submit Category</button>
+                    <button className="btn btn-primary">Submit Category</button>
 
                 </form>
                 
@@ -163,17 +198,9 @@ class Admin extends Component {
                         name="image"
                         onChange={this.handleItemChange}
                         value={this.state.newItem.image} />
-                    <button>Submit Item</button>
-
+                    <button className="btn btn-primary">Submit Item</button>
                 </form>
-                {/* //Add category form (button on click save category
-
-
-                //View all  items + delete buttoon
-                //Add item form */}
-
-
-            </div>
+            </AdminWrapper>
         )
     }
 }

@@ -9,6 +9,7 @@ const LoginWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    font-family: 'Anonymous Pro', monospace;
 
     h2 {
         font-size: 3em;
@@ -74,20 +75,17 @@ class LogIn extends Component {
         this.setState({ existingUser: { [field]: value } })
     }
 
-    onNewUserSubmit = (event) => {
-        event.preventDefault()
+    onNewUserSubmit = ( ) => {
         this.props.createUser(this.state.newUser)
     }
 
     onSingInSubmit = (event) => {
-        event.preventDefault()
         this.props.signInUser(this.state.existingUser)
     }
 
     render() {
         return (
             <LoginWrapper>
-                <form className="create-account-form" onSubmit={this.onNewUserSubmit}>
                     <h2>Create Account</h2>
                     <div>
                         <label htmlFor="name">Name</label>
@@ -105,10 +103,8 @@ class LogIn extends Component {
                             name="email"
                             onChange={this.handleNewUserChange}
                             value={this.state.newUser.email} />
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <Link to="/discover"><button onClick={this.onNewUserSubmit} className="btn btn-primary" type="submit">Submit</button></Link>
                     </div>
-                </form>
-                <form className="signin-form" onSubmit={this.onSingInSubmit}>
                     <h2>Sign In</h2>
                     <div>
                         <label htmlFor="email">Email</label>
@@ -119,9 +115,8 @@ class LogIn extends Component {
                             onChange={this.handleExistingUserChange}
                             value={this.state.existingUser.email} />
 
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <Link to="/discover"><button onClick={this.onSingInSubmit} className="btn btn-primary" type="submit">Submit</button></Link>
                     </div>
-                </form>
             </LoginWrapper>
         )
     }
