@@ -59,6 +59,11 @@ align-items: center;
         margin-left: 1em;
     }
 
+    button:hover{
+        color: rgb(187, 200, 147);
+        background-color: white;
+    }
+
 `
 
 class DefaultCategoryView extends Component {
