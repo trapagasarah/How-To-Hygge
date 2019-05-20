@@ -12,6 +12,44 @@ import About from './components/About'
 
 class App extends Component {
   state = {
+    user: {
+      "hyggeItems": [
+          {
+              "_id": "5cdddf7dfac1df540f8a5ee9",
+              "name": "Scarf",
+              "description": "light",
+              "category": "Clothing",
+              "image": "",
+              "__v": 0
+          },
+          {
+              "_id": "5cdddf7dfac1df540f8a5ee9",
+              "name": "Scarf",
+              "description": "light",
+              "category": "Clothing",
+              "image": "",
+              "__v": 0
+          },
+          {
+              "name": "Test",
+              "description": "test",
+              "category": "Home",
+              "image": "",
+              "_id": 486245079
+          },
+          {
+              "name": "Butterfly Garden",
+              "description": "",
+              "category": "Light",
+              "image": "",
+              "_id": 283621388
+          }
+      ],
+      "_id": "5cdb4871bdeda75d8135501f",
+      "name": "Michael",
+      "email": "michaelmail@example.com",
+      "__v": 0
+  },
     // user: {
     //   id: '',
     //   name: '',

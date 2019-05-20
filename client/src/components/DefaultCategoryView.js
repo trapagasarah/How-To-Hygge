@@ -3,13 +3,26 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+const DefaultCategoryViewWrapper = styled.div`
+display: flex;
+color: white;
+font-family: 'Anonymous Pro', monospace;
+flex-direction: column;
+align-items: center;
+
+img{
+    width: 20em;
+}
+`
+
 class DefaultCategoryView extends Component {
     render() {
         return (
-            <div>
+            <DefaultCategoryViewWrapper>
                 <h2>{this.props.category.name}</h2>
+                <img src={this.props.category.image} />
                 <p>{this.props.category.description}</p>
-                <img src={this.props.category.img} />
+                
                 <div>
                     {
                         this.props.items.map(item => <div key={item._id}>
@@ -20,7 +33,7 @@ class DefaultCategoryView extends Component {
                         </div>)
                     }
                 </div>
-            </div>
+            </DefaultCategoryViewWrapper>
         )
     }
 }
