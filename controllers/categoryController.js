@@ -54,7 +54,7 @@ const categoryController = {
     },
     items: async  (req, res) => {
         try {
-            const category = req.params.category
+            const category = decodeURIComponent(req.params.category)
             console.log(category)
             const items = await HyggeItem.find({category: category})
             res.json(items)

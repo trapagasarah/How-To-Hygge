@@ -199,6 +199,14 @@ class Admin extends Component {
         this.setState({ categories: categoriesResponse.data })
     }
 
+    onCategoryClick = async (categoryId, categoryName) => {
+        let categoryResponse = await axios.get(`/categories/${categoryId}`)
+        console.log(categoryResponse.data)
+        this.props.setCategory(categoryResponse.data)
+        let itemsResponse = await axios.get(`/categories/${categoryName}/items`)
+        console.log(itemsResponse.data)
+        this.props.setItems(itemsResponse.data)
+    }
 
     render() {
         return (
@@ -211,7 +219,7 @@ class Admin extends Component {
 
                             <ul className="category-items" key={category._id}>
                                 <div className="category-name">
-                                    <h2>{category.name}</h2>
+                                    <Link onClick={() => this.onCategoryClick(category._id, category.name)} to={`/categories/${category.name}`}><h2>{category.name}</h2></Link>
                                     <button className="btn btn-primary" onClick={() => this.deleteCategory(category._id)}>Delete Category</button>
                                 </div>
                                 {
@@ -314,13 +322,11 @@ class Admin extends Component {
                             value={this.state.newItem.description}
                         />
                         <label htmlFor="category">Category</label>
-                        <input
-                            id="category"
-                            type="text"
-                            name="category"
-                            onChange={this.handleItemChange}
-                            value={this.state.newItem.category}
-                        />
+                        <select id="category" name="category" onChange={this.handleItemChange}>
+                            {this.state.categories.map(category => (
+                                <option key={category._id} value={category.name}>{category.name}</option>
+                            ))}
+                        </select>
                         <button className="btn btn-primary">Submit Item</button>
                     </form>
 

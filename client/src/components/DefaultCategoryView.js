@@ -20,6 +20,8 @@ align-items: center;
 
     .item-info{
         display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         width: 60%;
         margin-top: 1.5em;
     }

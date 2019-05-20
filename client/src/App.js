@@ -132,7 +132,7 @@ class App extends Component {
     const DefaultCategoryViewComponent = () => (<DefaultCategoryView addItem={this.addItem} items={this.state.items} category={this.state.category} />)
     const MyHomeWishlistComponent = () => (<MyHomeWishlist addHyggeItem={this.addItem} deleteHyggeItem={this.deleteHyggeItem} hyggeItems={this.state.user.hyggeItems} />)
     const LogInComponent = () => (<LogIn createUser={this.createUser} signInUser={this.signInUser} />)
-    const AdminComponent = () => (<Admin />)
+    const AdminComponent = () => (<Admin setItems={this.setItems} setCategory={this.setCategory}/>)
     const AccountComponent = () => (<Account user={this.state.user} deleteUser={this.deleteUser} />)
 
     return (    
