@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect, Link } from 'react-router-dom'
 import axios from 'axios'
+import styled from 'styled-components'
 import LogIn from './components/LogIn'
 import Discover from './components/Discover'
 import DefaultCategoryView from './components/DefaultCategoryView'
@@ -10,46 +11,59 @@ import Navbar from './components/Navbar'
 import Account from './components/Account'
 import About from './components/About'
 
+const FooterWrapper = styled.div`
+  color: white;
+  font-size: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: rgba(187, 200, 147, .4);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+`
+
 class App extends Component {
   state = {
     user: {
       "hyggeItems": [
-          {
-              "_id": "5cdddf7dfac1df540f8a5ee9",
-              "name": "Scarf",
-              "description": "light",
-              "category": "Clothing",
-              "image": "",
-              "__v": 0
-          },
-          {
-              "_id": "5cdddf7dfac1df540f8a5ee9",
-              "name": "Scarf",
-              "description": "light",
-              "category": "Clothing",
-              "image": "",
-              "__v": 0
-          },
-          {
-              "name": "Test",
-              "description": "test",
-              "category": "Home",
-              "image": "",
-              "_id": 486245079
-          },
-          {
-              "name": "Butterfly Garden",
-              "description": "",
-              "category": "Light",
-              "image": "",
-              "_id": 283621388
-          }
+        {
+          "_id": "5cdddf7dfac1df540f8a5ee9",
+          "name": "Scarf",
+          "description": "light",
+          "category": "Clothing",
+          "image": "",
+          "__v": 0
+        },
+        {
+          "_id": "5cdddf7dfac1df540f8a5ee9",
+          "name": "Scarf",
+          "description": "light",
+          "category": "Clothing",
+          "image": "",
+          "__v": 0
+        },
+        {
+          "name": "Test",
+          "description": "test",
+          "category": "Home",
+          "image": "",
+          "_id": 486245079
+        },
+        {
+          "name": "Butterfly Garden",
+          "description": "",
+          "category": "Light",
+          "image": "",
+          "_id": 283621388
+        }
       ],
       "_id": "5cdb4871bdeda75d8135501f",
       "name": "Michael",
       "email": "michaelmail@example.com",
       "__v": 0
-  },
+    },
     // user: {
     //   id: '',
     //   name: '',
@@ -110,7 +124,7 @@ class App extends Component {
 
   createUser = async (user) => {
     this.setState({ user: null })
-    user.id = Math.random() 
+    user.id = Math.random()
     let response = await axios.post('/users', user)
     console.log(response)
     this.setState({ user: response.data })
@@ -132,10 +146,10 @@ class App extends Component {
     const DefaultCategoryViewComponent = () => (<DefaultCategoryView addItem={this.addItem} items={this.state.items} category={this.state.category} />)
     const MyHomeWishlistComponent = () => (<MyHomeWishlist addHyggeItem={this.addItem} deleteHyggeItem={this.deleteHyggeItem} hyggeItems={this.state.user.hyggeItems} />)
     const LogInComponent = () => (<LogIn createUser={this.createUser} signInUser={this.signInUser} />)
-    const AdminComponent = () => (<Admin setItems={this.setItems} setCategory={this.setCategory}/>)
+    const AdminComponent = () => (<Admin setItems={this.setItems} setCategory={this.setCategory} />)
     const AccountComponent = () => (<Account user={this.state.user} deleteUser={this.deleteUser} />)
 
-    return (    
+    return (
       <Router>
         <div>
           <Navbar parentState={this.state} />
@@ -151,6 +165,9 @@ class App extends Component {
             <Route exact path="/about" component={About} />
             <Route path="/*" render={() => <Redirect to="/discover" />} />
           </Switch>
+          <FooterWrapper>
+            <footer>All quotes and images are from <u>The Little Book of Hygge</u> by Meik Wiking. View the About page for more details.</footer>
+          </FooterWrapper>
         </div>
       </Router>
     )

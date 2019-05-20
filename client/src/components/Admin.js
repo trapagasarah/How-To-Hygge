@@ -94,6 +94,13 @@ flex-direction: column;
      select {
          margin-top: 1em;
      }
+
+     .item-category {
+        margin-top: 0;
+        margin-bottom: 2em;
+     }
+
+
     
 `
 
@@ -327,7 +334,7 @@ class Admin extends Component {
                             value={this.state.newItem.description}
                         />
                         <label htmlFor="category">Category</label>
-                        <select id="category" name="category" onChange={this.handleItemChange}>
+                        <select className="item-category" id="category" name="category" onChange={this.handleItemChange}>
                             {this.state.categories.map(category => (
                                 <option key={category._id} value={category.name}>{category.name}</option>
                             ))}
