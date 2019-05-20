@@ -43,6 +43,11 @@ flex-direction: column;
 
     h2 {
         text-decoration: underline;
+        color: white;
+    }
+
+    .category:hover {
+        color: rgb(187, 200, 147);
     }
 
     h5 {
@@ -219,7 +224,7 @@ class Admin extends Component {
 
                             <ul className="category-items" key={category._id}>
                                 <div className="category-name">
-                                    <Link onClick={() => this.onCategoryClick(category._id, category.name)} to={`/categories/${category.name}`}><h2>{category.name}</h2></Link>
+                                    <Link onClick={() => this.onCategoryClick(category._id, category.name)} to={`/categories/${category.name}`}><h2 className="category">{category.name}</h2></Link>
                                     <button className="btn btn-primary" onClick={() => this.deleteCategory(category._id)}>Delete Category</button>
                                 </div>
                                 {
