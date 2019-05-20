@@ -30,6 +30,10 @@ flex-direction: column;
 
     }
 
+    h2 {
+        text-decoration: underline;
+    }
+
     h3 {
         text-align: center;
         color: white;
