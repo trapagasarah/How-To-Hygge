@@ -7,11 +7,11 @@
     "node": "10.13.0"
   },
   "scripts": {
-     "start": "node server.js",
-     "dev": "concurrently \"nodemon server.js\" \"cd client && npm start\"",
-     "test": "echo \"Error: no test specified\" && exit 1",
-     "postinstall": "cd client && npm i && npm run build"
-   },
+    "start": "node server.js",
+    "dev": "concurrently \"nodemon server.js\" \"cd client && npm start\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd client && npm i && npm run build"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/trapagasarah/How-To-Hygge.git"
@@ -28,6 +28,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "mongoose": "^5.5.8",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "react-google-login": "^5.0.4"
   }
 }
