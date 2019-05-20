@@ -130,6 +130,8 @@ class Admin extends Component {
     componentDidMount = async () => {
         let categoriesResponse = await axios('/categories')
         this.setState({ categories: categoriesResponse.data })
+        categoriesResponse.data.length && this.setState(prevState => ({ newItem: {...prevState.newItem, category: categoriesResponse.data[0].name} }))
+
         categoriesResponse.data.length && this.setState({ updatedCategory: categoriesResponse.data[0] })
         let itemsResponse = await axios('/items')
         this.setState({ items: itemsResponse.data })
