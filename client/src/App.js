@@ -71,7 +71,7 @@ class App extends Component {
       }
     )
       , () => {
-        axios.patch(`/users/${this.state.user._id}`, this.state.user)
+        axios.patch(`/api/users/${this.state.user._id}`, this.state.user)
       }
     )
 
@@ -89,21 +89,21 @@ class App extends Component {
         }
       }
     )
-      , () => axios.patch(`/users/${this.state.user._id}`, this.state.user)
+      , () => axios.patch(`/api/users/${this.state.user._id}`, this.state.user)
     )
   }
 
   createUser = async (user) => {
     this.setState({ user: null })
     user.id = Math.random()
-    let response = await axios.post('/users', user)
+    let response = await axios.post('/api/users', user)
     console.log(response)
     this.setState({ user: response.data })
   }
 
   signInUser = async (token) => {
     this.setState({ user: null })
-    let response = await axios.post(`/users/signin`, {token: token})
+    let response = await axios.post(`/api/users/signin`, {token: token})
     this.setState({ user: response.data })
   }
 
@@ -112,7 +112,7 @@ class App extends Component {
   }
 
   deleteUser = async () => {
-    await axios.delete(`/users/${this.state.user._id}`)
+    await axios.delete(`/api/users/${this.state.user._id}`)
     this.setState({ user: undefined })
   }
 

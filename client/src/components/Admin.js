@@ -130,12 +130,12 @@ class Admin extends Component {
     }
 
     componentDidMount = async () => {
-        let categoriesResponse = await axios('/categories')
+        let categoriesResponse = await axios('/api/categories')
         this.setState({ categories: categoriesResponse.data })
         categoriesResponse.data.length && this.setState(prevState => ({ newItem: {...prevState.newItem, category: categoriesResponse.data[0].name} }))
 
         categoriesResponse.data.length && this.setState({ updatedCategory: categoriesResponse.data[0] })
-        let itemsResponse = await axios('/items')
+        let itemsResponse = await axios('/api/items')
         this.setState({ items: itemsResponse.data })
     }
 
@@ -153,15 +153,15 @@ class Admin extends Component {
 
     onCategorySubmit = async (event) => {
         event.preventDefault()
-        await axios.post('/categories', this.state.newCategory)
-        let categoriesResponse = await axios.get('/categories')
+        await axios.post('/api/categories', this.state.newCategory)
+        let categoriesResponse = await axios.get('/api/categories')
         console.log(categoriesResponse)
         this.setState({ categories: categoriesResponse.data })
     }
 
     deleteCategory = async (categoryId) => {
-        await axios.delete(`/categories/${categoryId}`)
-        let categoriesResponse = await axios.get('/categories')
+        await axios.delete(`/api/categories/${categoryId}`)
+        let categoriesResponse = await axios.get('/api/categories')
         this.setState({ categories: categoriesResponse.data })
     }
 
@@ -189,15 +189,15 @@ class Admin extends Component {
     }
     onItemSubmit = async (event) => {
         event.preventDefault()
-        await axios.post('/items', this.state.newItem)
-        let itemsResponse = await axios.get('/items')
+        await axios.post('/api/items', this.state.newItem)
+        let itemsResponse = await axios.get('/api/items')
         console.log(itemsResponse)
         this.setState({ items: itemsResponse.data })
     }
 
     deleteItem = async (itemId) => {
-        await axios.delete(`/items/${itemId}`)
-        let itemsResponse = await axios.get('/items')
+        await axios.delete(`/api/items/${itemId}`)
+        let itemsResponse = await axios.get('/api/items')
         this.setState({ items: itemsResponse.data })
     }
 
@@ -209,17 +209,17 @@ class Admin extends Component {
 
     saveCategory = async (event) => {
         event.preventDefault()
-        await axios.patch(`/categories/${this.state.updatedCategory._id}`, this.state.updatedCategory)
-        let categoriesResponse = await axios.get('/categories')
+        await axios.patch(`/api/categories/${this.state.updatedCategory._id}`, this.state.updatedCategory)
+        let categoriesResponse = await axios.get('/api/categories')
         console.log(categoriesResponse)
         this.setState({ categories: categoriesResponse.data })
     }
 
     onCategoryClick = async (categoryId, categoryName) => {
-        let categoryResponse = await axios.get(`/categories/${categoryId}`)
+        let categoryResponse = await axios.get(`/api/categories/${categoryId}`)
         console.log(categoryResponse.data)
         this.props.setCategory(categoryResponse.data)
-        let itemsResponse = await axios.get(`/categories/${categoryName}/items`)
+        let itemsResponse = await axios.get(`/api/categories/${categoryName}/items`)
         console.log(itemsResponse.data)
         this.props.setItems(itemsResponse.data)
     }

@@ -10,9 +10,9 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static(`${__dirname}/client/build`));
 
-app.use('/users', userRoutes);
-app.use('/items', hyggeItemRoutes);
-app.use('/categories', categoryRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/items', hyggeItemRoutes);
+app.use('/api/categories', categoryRoutes);
 
 
 app.get('/*', (req, res) => {

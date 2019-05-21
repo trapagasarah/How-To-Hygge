@@ -41,15 +41,15 @@ class Discover extends Component {
     }
 
     componentDidMount = async () => {
-        let response = await axios.get('/categories')
+        let response = await axios.get('/api/categories')
         this.setState({ categories: response.data })
     }
 
     handleChange = async (categoryId, categoryName) => {
-        let categoryResponse = await axios.get(`/categories/${categoryId}`)
+        let categoryResponse = await axios.get(`/api/categories/${categoryId}`)
         console.log(categoryResponse.data)
         this.props.setCategory(categoryResponse.data)
-        let itemsResponse = await axios.get(`/categories/${categoryName}/items`)
+        let itemsResponse = await axios.get(`/api/categories/${categoryName}/items`)
         console.log(itemsResponse.data)
         this.props.setItems(itemsResponse.data)
     }

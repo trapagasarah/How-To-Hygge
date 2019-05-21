@@ -10,47 +10,7 @@ const LoginWrapper = styled.div`
     align-items: center;
     justify-content: space-evenly;
     font-family: 'Anonymous Pro', monospace;
-
-    /* h2 {
-        font-size: 3em;
-    }
-    label {
-        font-size: 1.5em;
-    }
-
-    input {
-        margin-bottom: 1em;
-    }
-
-    div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 1em;
-    }
-
-    .create-account-form {
-        margin: 4em;
-        display: flex;
-        flex-direction: column;
-    }
-    .signin-form {
-        display: flex;
-        flex-direction: column;
-    }
-    
-    button {
-        width: 5em;
-        background-color: rgb(187, 200, 147);
-        border: 1px solid white; 
-    }
-
-    button:hover {
-        background-color: white;
-        color: rgb(187, 200, 147);
-    } */
 `
-
 
 class LogIn extends Component {
     state = {
@@ -70,11 +30,12 @@ class LogIn extends Component {
     render() {
         return (
             <LoginWrapper>
-                <h1>Google Login</h1>
+                <h1>Login with Google</h1>
                 {this.state.signInComplete ? <Redirect to="/discover" />
                     : <GoogleLogin
                         clientId={process.env.REACT_APP_HOW_TO_HYGGE_GOOGLE_CLIENT_ID}
                         buttonText="Login"
+                        autoLoad={true}
                         onSuccess={this.onSignInSuccess}
                         onFailure={this.onSignInFailed}
                         cookiePolicy={'single_host_origin'}

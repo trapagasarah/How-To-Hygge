@@ -89,7 +89,7 @@ class MyHomeWishlist extends Component {
     }
 
     componentDidMount = async () => {
-        let categoriesResponse = await axios('/categories')
+        let categoriesResponse = await axios('/api/categories')
         this.setState({ categories: categoriesResponse.data })
     }
     handleHyggeItemChange = async (event) => {
