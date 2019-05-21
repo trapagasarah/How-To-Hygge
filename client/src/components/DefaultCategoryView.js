@@ -37,7 +37,7 @@ align-items: center;
     }
 
     h2 {
-        font-weight: 700;
+        margin-bottom: 1em;
         
     }
 
@@ -81,7 +81,7 @@ class DefaultCategoryView extends Component {
                 <div className="item-info">
                     {
                         this.props.items.map(item => <div className="item-name" key={item._id}>
-                            <h2>{item.name}: {item.description}</h2>
+                            <h2><u>{item.name}</u>: {item.description}</h2>
                             <button className="btn btn-primary" onClick={() => this.props.addItem(item)}>Add Item</button>
                         </div>)
                     }
