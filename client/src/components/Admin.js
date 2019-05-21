@@ -100,7 +100,9 @@ flex-direction: column;
         margin-bottom: 2em;
      }
 
-
+     .category-update{
+         margin-bottom: 4em;
+     }
     
 `
 
@@ -288,7 +290,7 @@ class Admin extends Component {
 
                     </form>
 
-                    <form onSubmit={this.saveCategory}>
+                    <form className="category-update" onSubmit={this.saveCategory}>
                         <h2>Update Category</h2>
                         <select name="_id" onChange={this.onUpdatedItemSelected}>
                             {this.state.categories.map(category => (

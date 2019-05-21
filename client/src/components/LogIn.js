@@ -86,18 +86,25 @@ class LogIn extends Component {
 
     responseGoogle = (response) => {
         console.log(response);
+        let tokenId = response.tokenId
+        // this.props.signInUser(tokenId)
     }
+
+    failedGoogleResponse = (response) => {
+        console.log("failed to sign in to Google")
+    }
+
 
     render() {
         return (
             <LoginWrapper>
-                {/* <GoogleLogin
+                <GoogleLogin
                     clientId="70544227804-bnn4nmdh5jsdj3veddgpatrqj9t9dk4f.apps.googleusercontent.com"
                     buttonText="Login"
                     onSuccess={this.responseGoogle}
-                    onFailure={this.responseGoogle}
+                    onFailure={this.failedGoogleResponse}
                     cookiePolicy={'single_host_origin'}
-                /> */}
+                />
                 <h2>Create Account</h2>
                 <div>
                     <label htmlFor="name">Name</label>

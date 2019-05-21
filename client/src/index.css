@@ -10,8 +10,10 @@ body {
   background-position: center;
   background-attachment: fixed;
   height: 80em;
-  /* color: rgb(187, 200, 147); */
+  
 }
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

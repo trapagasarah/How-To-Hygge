@@ -11,6 +11,8 @@ const DiscoverWrapper = styled.div`
     margin: 2em 0;
     font-family: 'Anonymous Pro', monospace;
     color: white;
+    height: 100%;
+
     
 
     h1 {

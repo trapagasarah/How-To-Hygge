@@ -22,6 +22,15 @@ const FooterWrapper = styled.div`
   left: 0;
   bottom: 0;
   width: 100%;
+  
+
+  u {
+    color: white;
+  }
+
+  u:hover {
+    color: rgb(187, 200, 147);
+  }
 `
 
 class App extends Component {
@@ -132,7 +141,9 @@ class App extends Component {
 
   signInUser = async (user) => {
     this.setState({ user: null })
-    let response = await axios.post(`/users/signin`, user)
+    let response = await axios.post(`/users/signin`, {user})
+    // let response = await axios.post(`/users/signin`, {token: token})
+
     this.setState({ user: response.data })
   }
 
