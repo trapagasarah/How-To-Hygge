@@ -4,14 +4,14 @@ import styled from 'styled-components'
 import { GoogleLogin } from 'react-google-login';
 
 const LoginWrapper = styled.div`
-    /* color: white;
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     font-family: 'Anonymous Pro', monospace;
 
-    h2 {
+    /* h2 {
         font-size: 3em;
     }
     label {
@@ -70,6 +70,7 @@ class LogIn extends Component {
     render() {
         return (
             <LoginWrapper>
+                <h1>Google Login</h1>
                 {this.state.signInComplete ? <Redirect to="/discover" />
                     : <GoogleLogin
                         clientId={process.env.REACT_APP_HOW_TO_HYGGE_GOOGLE_CLIENT_ID}

@@ -25,6 +25,10 @@ const AboutWrapper = styled.div`
              font-size: 2em;
              margin-bottom: 2em;
          }
+
+         a {
+             color: rgb(187, 200, 147);
+         }
          
          .about-hygge {
              width: 40%;

@@ -11,8 +11,9 @@ const AccountWrapper = styled.div`
     font-family: 'Anonymous Pro', monospace;
     color: white;
     margin-top: 3em;
+    
 
-    button {
+    .delete-account {
         background-color: rgb(187, 200, 147);
         border: 1px solid white;
         width: 9em;
@@ -21,9 +22,12 @@ const AccountWrapper = styled.div`
         padding: 0;
     }
 
-    button:hover {
+    .delete-account:hover {
         color: rgb(187, 200, 147);
         background-color: white;
+
+    
+
     }
 `
 
@@ -38,9 +42,10 @@ class Account extends Component {
             <AccountWrapper>
                 <h3>Name: {this.props.user.name}</h3>
                 <h3>Email: {this.props.user.email}</h3>
-                <button className="btn btn-primary" onClick={this.props.deleteUser}>Delete Account</button>
+                <button className="btn btn-primary delete-account" onClick={this.props.deleteUser}>Delete Account</button>
 
-                <GoogleLogout
+                <GoogleLogout 
+                    className="google-logout"
                     clientId={process.env.REACT_APP_HOW_TO_HYGGE_GOOGLE_CLIENT_ID}
                     buttonText="Logout"
                     onLogoutSuccess={this.onGoogleSignOut}

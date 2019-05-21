@@ -8,6 +8,7 @@ display: flex;
 color: white;
 font-family: 'Anonymous Pro', monospace;
 flex-direction: column;
+margin-bottom: 4em;
 
     .my-hygge-items {
         display: flex;

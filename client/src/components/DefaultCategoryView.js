@@ -9,6 +9,7 @@ color: white;
 font-family: 'Anonymous Pro', monospace;
 flex-direction: column;
 align-items: center;
+margin-bottom: 4em;
 
     .category-info {
         display: flex;
