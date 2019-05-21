@@ -29,7 +29,7 @@ const FooterWrapper = styled.div`
   }
 
   u:hover {
-    color: rgb(187, 200, 147);
+    color: rgb(84, 90, 66);
   }
 `
 
