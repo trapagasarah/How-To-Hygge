@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
-import GoogleLogin from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 
 const LoginWrapper = styled.div`
-    color: white;
+    /* color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,94 +48,39 @@ const LoginWrapper = styled.div`
     button:hover {
         background-color: white;
         color: rgb(187, 200, 147);
-    }
+    } */
 `
+
 
 class LogIn extends Component {
     state = {
-        newUser: {
-            name: '',
-            email: '',
-            hyggeItems: []
-        },
-        existingUser: {
-            email: '',
-        }
+        signInComplete: false
     }
 
-    handleNewUserChange = (event) => {
-        const field = event.target.name
-        const value = event.target.value
-        this.setState(prevState => ({ newUser: { ...prevState.newUser, [field]: value } }))
-    }
-
-    handleExistingUserChange = (event) => {
-        const field = event.target.name
-        const value = event.target.value
-        this.setState({ existingUser: { [field]: value } })
-    }
-
-    onNewUserSubmit = () => {
-        this.props.createUser(this.state.newUser)
-    }
-
-    onSingInSubmit = (event) => {
-        this.props.signInUser(this.state.existingUser)
-    }
-
-    responseGoogle = (response) => {
-        console.log(response);
+    onSignInSuccess = async (response) => {
         let tokenId = response.tokenId
-        // this.props.signInUser(tokenId)
+        await this.props.signInUser(tokenId)
+        this.setState({ signInComplete: true })
     }
 
-    failedGoogleResponse = (response) => {
-        console.log("failed to sign in to Google")
+    onSignInFailed = (response) => {
+        console.log("Failed to sign in to Google", response)
     }
-
 
     render() {
         return (
             <LoginWrapper>
-                <GoogleLogin
-                    clientId="70544227804-bnn4nmdh5jsdj3veddgpatrqj9t9dk4f.apps.googleusercontent.com"
-                    buttonText="Login"
-                    onSuccess={this.responseGoogle}
-                    onFailure={this.failedGoogleResponse}
-                    cookiePolicy={'single_host_origin'}
-                />
-                <h2>Create Account</h2>
-                <div>
-                    <label htmlFor="name">Name</label>
-                    <input
-                        id="name"
-                        type="text"
-                        name="name"
-                        onChange={this.handleNewUserChange}
-                        value={this.state.newUser.name}
+                {this.state.signInComplete ? <Redirect to="/discover" />
+                    : <GoogleLogin
+                        clientId={process.env.REACT_APP_HOW_TO_HYGGE_GOOGLE_CLIENT_ID}
+                        buttonText="Login"
+                        onSuccess={this.onSignInSuccess}
+                        onFailure={this.onSignInFailed}
+                        cookiePolicy={'single_host_origin'}
                     />
-                    <label htmlFor="email">Email</label>
-                    <input
-                        id="email"
-                        type="text"
-                        name="email"
-                        onChange={this.handleNewUserChange}
-                        value={this.state.newUser.email} />
-                    <Link to="/discover"><button onClick={this.onNewUserSubmit} className="btn btn-primary" type="submit">Submit</button></Link>
-                </div>
-                <h2>Sign In</h2>
-                <div>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        id="email"
-                        type="text"
-                        name="email"
-                        onChange={this.handleExistingUserChange}
-                        value={this.state.existingUser.email} />
-
-                    <Link to="/discover"><button onClick={this.onSingInSubmit} className="btn btn-primary" type="submit">Submit</button></Link>
-                </div>
+                }
             </LoginWrapper>
+
         )
     }
 }

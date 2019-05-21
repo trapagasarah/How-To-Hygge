@@ -1,5 +1,9 @@
 const User = require('../models/User');
 
+const CLIENT_ID = process.env.NODE_HOW_TO_HYGGE_GOOGLE_CLIENT_ID
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(CLIENT_ID);
+
 const userController = {
     list: async (req, res) => {
         try {
@@ -53,8 +57,27 @@ const userController = {
     }, 
     signIn: async (req, res) => {
         try {
-            const user = req.body
-            const signedInUser = await User.findOne({email: user.email})
+            const token = req.body.token
+            const ticket = await client.verifyIdToken({
+                idToken: token,
+                audience: CLIENT_ID
+            });
+            const payload = ticket.getPayload();
+            const userId = payload.sub;
+
+
+
+            let signedInUser = await User.findOne({id: userId})
+            if(signedInUser === null) {
+                console.log('User does has not signed in yet. Creating new account')
+                signedInUser = await User.create({
+                    id: userId,
+                    email: payload.email, 
+                    name: payload.name, 
+                    hyggeItems: []
+                })
+            }
+            console.log(signedInUser)
             res.json(signedInUser)
         } catch (err) {
             console.log(err)

@@ -35,44 +35,6 @@ const FooterWrapper = styled.div`
 
 class App extends Component {
   state = {
-    user: {
-      "hyggeItems": [
-        {
-          "_id": "5cdddf7dfac1df540f8a5ee9",
-          "name": "Scarf",
-          "description": "light",
-          "category": "Clothing",
-          "image": "",
-          "__v": 0
-        },
-        {
-          "_id": "5cdddf7dfac1df540f8a5ee9",
-          "name": "Scarf",
-          "description": "light",
-          "category": "Clothing",
-          "image": "",
-          "__v": 0
-        },
-        {
-          "name": "Test",
-          "description": "test",
-          "category": "Home",
-          "image": "",
-          "_id": 486245079
-        },
-        {
-          "name": "Butterfly Garden",
-          "description": "",
-          "category": "Light",
-          "image": "",
-          "_id": 283621388
-        }
-      ],
-      "_id": "5cdb4871bdeda75d8135501f",
-      "name": "Michael",
-      "email": "michaelmail@example.com",
-      "__v": 0
-    },
     // user: {
     //   id: '',
     //   name: '',
@@ -139,12 +101,14 @@ class App extends Component {
     this.setState({ user: response.data })
   }
 
-  signInUser = async (user) => {
+  signInUser = async (token) => {
     this.setState({ user: null })
-    let response = await axios.post(`/users/signin`, {user})
-    // let response = await axios.post(`/users/signin`, {token: token})
-
+    let response = await axios.post(`/users/signin`, {token: token})
     this.setState({ user: response.data })
+  }
+
+  signOutUser = () => {
+    this.setState({ user: undefined })
   }
 
   deleteUser = async () => {
@@ -158,7 +122,7 @@ class App extends Component {
     const MyHomeWishlistComponent = () => (<MyHomeWishlist addHyggeItem={this.addItem} deleteHyggeItem={this.deleteHyggeItem} hyggeItems={this.state.user.hyggeItems} />)
     const LogInComponent = () => (<LogIn createUser={this.createUser} signInUser={this.signInUser} />)
     const AdminComponent = () => (<Admin setItems={this.setItems} setCategory={this.setCategory} />)
-    const AccountComponent = () => (<Account user={this.state.user} deleteUser={this.deleteUser} />)
+    const AccountComponent = () => (<Account signOutUser={this.signOutUser} user={this.state.user} deleteUser={this.deleteUser} />)
 
     return (
       <Router>
