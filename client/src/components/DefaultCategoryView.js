@@ -59,7 +59,8 @@ margin-bottom: 4em;
         width: 7em;
         height: 1.5em;
         padding: 0;
-        margin-left: 1em;
+        margin-right: 1em;
+        margin-bottom: 2em;
     }
 
     button:hover{
@@ -82,8 +83,8 @@ class DefaultCategoryView extends Component {
                 <div className="item-info">
                     {
                         this.props.items.map(item => <div className="item-name" key={item._id}>
-                            <h2><u>{item.name}</u>: {item.description}</h2>
                             <button className="btn btn-primary" onClick={() => this.props.addItem(item)}>Add Item</button>
+                            <h2><u>{item.name}</u>: {item.description}</h2>
                         </div>)
                     }
                 </div>
